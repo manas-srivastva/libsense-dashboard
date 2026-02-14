@@ -47,6 +47,14 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        status: {
+          available: "hsl(var(--status-available))",
+          "available-bg": "hsl(var(--status-available-bg))",
+          occupied: "hsl(var(--status-occupied))",
+          "occupied-bg": "hsl(var(--status-occupied-bg))",
+          reserved: "hsl(var(--status-reserved))",
+          "reserved-bg": "hsl(var(--status-reserved-bg))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
