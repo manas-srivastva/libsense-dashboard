@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import { Check, User, Briefcase } from "lucide-react";
 import {
   Tooltip,
@@ -8,6 +9,7 @@ import type { Seat } from "@/lib/mockData";
 
 interface SeatCardProps {
   seat: Seat;
+  highlighted?: boolean;
 }
 
 const statusConfig = {
@@ -31,19 +33,38 @@ const statusConfig = {
   },
 };
 
-const SeatCard = ({ seat }: SeatCardProps) => {
+const SeatCard = ({ seat, highlighted = false }: SeatCardProps) => {
   const config = statusConfig[seat.status];
   const Icon = config.icon;
+  const prevStatus = useRef(seat.status);
+  const cardRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (prevStatus.current !== seat.status && cardRef.current) {
+      cardRef.current.classList.add("seat-flip");
+      const timer = setTimeout(() => cardRef.current?.classList.remove("seat-flip"), 500);
+      prevStatus.current = seat.status;
+      return () => clearTimeout(timer);
+    }
+  }, [seat.status]);
+
+  useEffect(() => {
+    if (highlighted && cardRef.current) {
+      cardRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [highlighted]);
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <button
+          ref={cardRef}
           className={`
             relative flex flex-col items-center justify-center gap-1 
             rounded-xl border p-3 transition-all duration-300 ease-out
             hover:scale-105 hover:shadow-md cursor-pointer
             ${config.bg} ${config.border}
+            ${highlighted ? "ring-2 ring-primary ring-offset-2 scale-110 z-10" : ""}
           `}
         >
           <Icon className={`h-5 w-5 ${config.iconColor}`} />
