@@ -4,9 +4,10 @@ import type { Seat } from "@/lib/mockData";
 interface SeatGridProps {
   seats: Seat[];
   activeZone: string;
+  searchQuery?: string;
 }
 
-const SeatGrid = ({ seats, activeZone }: SeatGridProps) => {
+const SeatGrid = ({ seats, activeZone, searchQuery = "" }: SeatGridProps) => {
   const filtered = seats.filter((s) => {
     if (activeZone === "all") return true;
     if (activeZone === "Quiet Zones") return s.floor === "Quiet Zones";
@@ -28,7 +29,11 @@ const SeatGrid = ({ seats, activeZone }: SeatGridProps) => {
           <h3 className="mb-3 text-sm font-semibold text-foreground">{zone}</h3>
           <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 md:grid-cols-8">
             {zoneSeats.map((seat) => (
-              <SeatCard key={seat.id} seat={seat} />
+              <SeatCard
+                key={seat.id}
+                seat={seat}
+                highlighted={!!searchQuery && seat.id.toLowerCase().includes(searchQuery.toLowerCase())}
+              />
             ))}
           </div>
         </div>
