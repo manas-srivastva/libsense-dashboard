@@ -8,6 +8,7 @@ export interface Seat {
   floor: string;
 }
 
+
 const statuses: SeatStatus[] = ["available", "occupied", "reserved"];
 
 function randomStatus(): SeatStatus {
