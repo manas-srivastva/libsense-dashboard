@@ -4,41 +4,38 @@ import { allSeats, simulateUpdate } from "@/lib/mockData";
 import DashboardHeader from "@/components/DashboardHeader";
 import StatsBar from "@/components/StatsBar";
 import SeatGrid from "@/components/SeatGrid";
-import FloorFilter from "@/components/FloorFilter";
+import ZoneFilter from "@/components/FloorFilter";
 import Legend from "@/components/Legend";
 import { Input } from "@/components/ui/input";
 
 const Index = () => {
   const [seats, setSeats] = useState(allSeats);
-  const [activeFloor, setActiveFloor] = useState("all");
+  const [activeZone, setActiveZone] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSimulate = useCallback(() => {
     setSeats((prev) => simulateUpdate(prev));
   }, []);
 
-  const filteredForStats = activeFloor === "all"
+  const filteredForStats = activeZone === "all"
     ? seats
-    : activeFloor === "Quiet Zones"
-    ? seats.filter((s) => s.floor === "Quiet Zones")
-    : seats.filter((s) => s.floor === activeFloor);
+    : seats.filter((s) => s.zone === activeZone);
 
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />
 
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        {/* Stats */}
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <StatsBar seats={filteredForStats} />
 
-        <div className="mt-6 flex flex-col gap-6 lg:flex-row">
+        <div className="mt-8 flex flex-col gap-6 lg:flex-row">
           {/* Sidebar */}
-          <aside className="w-full lg:w-56 shrink-0 flex flex-col gap-4">
-            <FloorFilter active={activeFloor} onChange={setActiveFloor} />
+          <aside className="w-full lg:w-60 shrink-0 flex flex-col gap-4 animate-fade-in">
+            <ZoneFilter active={activeZone} onChange={setActiveZone} />
 
             <button
               onClick={handleSimulate}
-              className="glass-card-elevated flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-primary hover:bg-accent transition-colors duration-200"
+              className="glass-card-elevated flex items-center justify-center gap-2 px-4 py-3 text-sm font-semibold text-primary hover:bg-accent active:scale-[0.98] transition-all duration-200"
             >
               <RefreshCw className="h-4 w-4" />
               Simulate Update
@@ -50,8 +47,8 @@ const Index = () => {
           </aside>
 
           {/* Main Grid */}
-          <main className="flex-1 glass-card-elevated p-5">
-            <div className="flex flex-col gap-4 mb-4 sm:flex-row sm:items-center sm:justify-between">
+          <main className="flex-1 glass-card-elevated p-6">
+            <div className="flex flex-col gap-4 mb-5 sm:flex-row sm:items-center sm:justify-between">
               <h2 className="text-base font-semibold text-foreground">Seat Map</h2>
               <div className="flex items-center gap-3">
                 <div className="relative">
@@ -68,7 +65,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            <SeatGrid seats={seats} activeZone={activeFloor} searchQuery={searchQuery} />
+            <SeatGrid seats={seats} activeZone={activeZone} searchQuery={searchQuery} />
           </main>
         </div>
       </div>

@@ -5,9 +5,7 @@ export interface Seat {
   status: SeatStatus;
   lastUpdated: string;
   zone: string;
-  floor: string;
 }
-
 
 const statuses: SeatStatus[] = ["available", "occupied", "reserved"];
 
@@ -18,22 +16,27 @@ function randomStatus(): SeatStatus {
   return "reserved";
 }
 
-function generateSeats(zone: string, floor: string, count: number): Seat[] {
+function generateSeats(zone: string, prefix: string, count: number): Seat[] {
   return Array.from({ length: count }, (_, i) => ({
-    id: `${floor}-${zone}-${String(i + 1).padStart(2, "0")}`,
+    id: `${prefix}-${String(i + 1).padStart(2, "0")}`,
     status: randomStatus(),
     lastUpdated: new Date(Date.now() - Math.random() * 3600000).toLocaleTimeString(),
     zone,
-    floor,
   }));
 }
 
+export const zones = [
+  { id: "Zone A", label: "Zone A", description: "Open study area" },
+  { id: "Zone B", label: "Zone B", description: "Group collaboration" },
+  { id: "Zone C", label: "Zone C", description: "Computer stations" },
+  { id: "Quiet Zone", label: "Quiet Zone", description: "Silent study" },
+];
+
 export const allSeats: Seat[] = [
-  ...generateSeats("A", "Floor 1", 24),
-  ...generateSeats("B", "Floor 1", 20),
-  ...generateSeats("A", "Floor 2", 18),
-  ...generateSeats("B", "Floor 2", 16),
-  ...generateSeats("Quiet", "Quiet Zones", 12),
+  ...generateSeats("Zone A", "A", 24),
+  ...generateSeats("Zone B", "B", 20),
+  ...generateSeats("Zone C", "C", 18),
+  ...generateSeats("Quiet Zone", "Q", 12),
 ];
 
 export function simulateUpdate(seats: Seat[]): Seat[] {

@@ -20,8 +20,12 @@ const StatsBar = ({ seats }: StatsBarProps) => {
 
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-      {stats.map((stat) => (
-        <div key={stat.label} className="glass-card-elevated p-4 flex flex-col gap-1">
+      {stats.map((stat, i) => (
+        <div
+          key={stat.label}
+          className="glass-card-elevated p-4 flex flex-col gap-1 animate-fade-in"
+          style={{ animationDelay: `${i * 60}ms`, animationFillMode: "both" }}
+        >
           <div className="flex items-center gap-2">
             <stat.icon className={`h-4 w-4 ${stat.color}`} />
             <span className="text-xs font-medium text-muted-foreground">{stat.label}</span>
@@ -29,7 +33,10 @@ const StatsBar = ({ seats }: StatsBarProps) => {
           <span className={`text-2xl font-bold tracking-tight ${stat.color}`}>{stat.value}</span>
         </div>
       ))}
-      <div className="glass-card-elevated p-4 flex flex-col gap-2">
+      <div
+        className="glass-card-elevated p-4 flex flex-col gap-2 animate-fade-in"
+        style={{ animationDelay: "180ms", animationFillMode: "both" }}
+      >
         <span className="text-xs font-medium text-muted-foreground">Busy-ness Meter</span>
         <div className="flex items-end gap-2">
           <span className="text-2xl font-bold tracking-tight text-foreground">{busyPercent}%</span>
