@@ -65,7 +65,7 @@ const BenchSeat = ({
         <div
           ref={ref}
           className={`
-          flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1
+            flex-1 flex flex-col items-center justify-center gap-1 py-3 px-1
             cursor-pointer transition-all duration-300
             ${config.bg}
             ${!isLast ? "border-r border-border/40" : ""}
@@ -73,8 +73,8 @@ const BenchSeat = ({
             ${flip ? "flex-col-reverse" : ""}
           `}
         >
-          <Icon className={`h-2.5 w-2.5 ${config.iconColor}`} />
-          <span className="text-[8px] font-semibold text-muted-foreground leading-none">
+          <Icon className={`h-3.5 w-3.5 ${config.iconColor}`} />
+          <span className="text-[9px] font-semibold text-muted-foreground leading-none">
             {seat.id.split("-").pop()}
           </span>
         </div>

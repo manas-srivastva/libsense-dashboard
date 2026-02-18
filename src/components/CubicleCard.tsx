@@ -82,13 +82,13 @@ const CubicleCard = ({ seat, highlighted = false }: CubicleCardProps) => {
               `}
             >
               {/* Desk surface line */}
-              <div className="w-full h-px rounded-full bg-border/50" />
+              <div className="w-full h-0.5 rounded-full bg-border/50" />
 
               {/* Status icon */}
-              <Icon className={`h-2.5 w-2.5 ${config.iconColor}`} />
+              <Icon className={`h-3.5 w-3.5 ${config.iconColor}`} />
 
               {/* Seat ID */}
-              <span className="text-[7px] font-bold text-muted-foreground leading-none tracking-wide">
+              <span className="text-[8px] font-bold text-muted-foreground leading-none tracking-wide">
                 {seat.id.split("-").pop()}
               </span>
             </div>
