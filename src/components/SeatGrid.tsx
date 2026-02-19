@@ -6,6 +6,7 @@ import type { Seat } from "@/lib/mockData";
 
 interface SeatGridProps {
   seats: Seat[];
+  
   activeZone: string;
   searchQuery?: string;
 }

@@ -8,6 +8,8 @@ const items = [
 
 ];
 
+
+
 const Legend = () => (
   <div className="flex flex-wrap gap-4">
     {items.map((item) => (
